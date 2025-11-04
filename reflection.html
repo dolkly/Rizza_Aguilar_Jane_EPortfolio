@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FS Reflection | Portfolio</title>
+  <style>
+    /* ==== General Page Setup ==== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: #0f0e0b;
+      color: #f4d03f;
+      overflow-x: hidden;
+    }
+
+    body.light-mode {
+      background-color: #faf9f9c5;
+      color: #2a1515;
+    }
+
+    /* ==== Particles container ==== */
+    #particles-js {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    /* Animated background sparkles */
+    .sparkle {
+      position: fixed;
+      width: 4px;
+      height: 4px;
+      background: #d4af37;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+      animation: sparkleFloat 8s infinite;
+      box-shadow: 0 0 8px #d4af37;
+    }
+
+    @keyframes sparkleFloat {
+      0% {
+        transform: translateY(100vh) translateX(0) scale(0);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+        transform: translateY(90vh) translateX(10px) scale(1);
+      }
+      90% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-10vh) translateX(-20px) scale(0);
+        opacity: 0;
+      }
+    }
+
+    /* ==== Back to Home Button ==== */
+    .back-home-btn {
+      position: fixed;
+      top: 40px;
+      left: 40px;
+      background-color: #8b0a0a;
+      color: #f4d03f;
+      border: 2px solid #d4af37;
+      padding: 10px 20px;
+      font-size: 1em;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: 0.3s ease;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      box-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
+    }
+
+    .back-home-btn:hover {
+      background-color: #d4af37;
+      color: #0f0e0b;
+      border-color: #f4d03f;
+      transform: scale(1.05);
+    }
+
+    /* ==== Theme Toggle Button ==== */
+    .theme-toggle {
+      position: fixed;
+      top: 40px;
+      right: 100px;
+      background-color: #8b0a0a;
+      color: #f4d03f;
+      border: 2px solid #d4af37;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 1000;
+      font-size: 1.5em;
+      transition: 0.3s ease;
+      box-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
+    }
+
+    .theme-toggle:hover {
+      background-color: #d4af37;
+      color: #0f0e0b;
+      transform: scale(1.1) rotate(180deg);
+    }
+
+    /* ==== Back to Top Button ==== */
+    .back-to-top {
+      position: fixed;
+      bottom: 40px;
+      right: 40px;
+      background-color: #8b0a0a;
+      color: #f4d03f;
+      border: 2px solid #d4af37;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 1000;
+      font-size: 1.5em;
+      opacity: 0;
+      pointer-events: none;
+      transition: 0.3s ease;
+      box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+    }
+
+    .back-to-top.visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: scale(1.1);
+    }
+
+    .back-to-top:hover {
+      background-color: #d4af37;
+      color: #0f0e0b;
+      border-color: #f4d03f;
+      transform: scale(1.15);
+    }
+
+    /* ==== Hamburger Menu ==== */
+    .menu-icon {
+      position: fixed;
+      top: 40px;
+      right: 40px;
+      cursor: pointer;
+      z-index: 1001;
+      transition: transform 0.3s ease;
+    }
+
+    .menu-icon:hover {
+      transform: scale(1.1);
+    }
+
+    .menu-icon div {
+      width: 30px;
+      height: 3px;
+      background-color: #f4d03f;
+      margin: 6px 0;
+      border-radius: 2px;
+      transition: 0.4s ease;
+      box-shadow: 0 0 5px #d4af37;
+    }
+
+    .menu-icon.active div:nth-child(1) {
+      transform: rotate(45deg) translate(8px, 8px);
+    }
+
+    .menu-icon.active div:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu-icon.active div:nth-child(3) {
+      transform: rotate(-45deg) translate(8px, -8px);
+    }
+
+    /* ==== Navigation Menu ==== */
+    .nav-menu {
+      position: fixed;
+      top: 0;
+      right: -320px;
+      width: 300px;
+      height: 100vh;
+      background: linear-gradient(180deg, #1a0e0e 0%, #2a1515 100%);
+      border-left: 3px solid #d4af37;
+      z-index: 1000;
+      transition: right 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+      padding: 100px 30px;
+      box-shadow: -5px 0 20px rgba(212, 175, 55, 0.3);
+      opacity: 0;
+      overflow-y: auto;
+    }
+
+    .nav-menu.active {
+      right: 0;
+      opacity: 1;
+    }
+
+    .nav-menu ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .nav-menu li {
+      margin: 0;
+    }
+
+    /* Home dropdown button */
+    .home-dropdown-btn {
+      width: 100%;
+      background: none;
+      border: none;
+      color: #f4d03f;
+      text-decoration: none;
+      font-size: 1.3em;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 10px;
+      transition: all 0.3s ease;
+      text-shadow: 0 0 5px rgba(244, 208, 63, 0.4);
+      cursor: pointer;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .home-dropdown-btn:hover {
+      color: #d4af37;
+      padding-left: 15px;
+      text-shadow: 0 0 15px #f4d03f;
+    }
+
+    .dropdown-arrow {
+      font-size: 0.8em;
+      transition: transform 0.3s ease;
+      display: inline-block;
+    }
+
+    .dropdown-arrow.open {
+      transform: rotate(180deg);
+    }
+
+    /* Submenu */
+    .submenu {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease;
+      padding-left: 20px;
+    }
+
+    .submenu.active {
+      max-height: 1000px;
+    }
+
+    .submenu a {
+      color: #f4d03f;
+      text-decoration: none;
+      font-size: 1em;
+      font-weight: 500;
+      display: block;
+      padding: 12px 10px;
+      transition: all 0.3s ease;
+      opacity: 0.85;
+      border-left: 2px solid transparent;
+    }
+
+    .submenu a:hover {
+      opacity: 1;
+      padding-left: 15px;
+      color: #d4af37;
+      border-left-color: #d4af37;
+    }
+
+    .about-btn {
+      width: 100%;
+      background: none;
+      border: none;
+      color: #f4d03f;
+      text-decoration: none;
+      font-size: 1.3em;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 10px;
+      transition: all 0.3s ease;
+      text-shadow: 0 0 5px rgba(244, 208, 63, 0.4);
+      cursor: pointer;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .about-btn:hover {
+      color: #d4af37;
+      padding-left: 15px;
+      text-shadow: 0 0 15px #f4d03f;
+    }
+
+    /* ==== Hero Image Section ==== */
+    .hero-image {
+      width: 100%;
+      height: 400px;
+      background-image: url('your-image-here.jpg');
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      overflow: hidden;
+      animation: fadeIn 1s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    /* ==== Title Section ==== */
+    .title-section {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 40px auto;
+      position: relative;
+      animation: fadeSlideDown 1s ease 0.3s both;
+    }
+
+    @keyframes fadeSlideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .title-badge {
+      background-color: #8b0a0a;
+      color: white;
+      font-weight: bold;
+      font-size: 2em;
+      border-radius: 10px;
+      padding: 10px 30px;
+      border: 2px solid #d4af37;
+      text-align: center;
+      z-index: 1;
+      position: relative;
+      box-shadow: 0 5px 20px rgba(212, 175, 55, 0.3);
+      transition: transform 0.3s ease;
+    }
+
+    .title-badge:hover {
+      transform: scale(1.05);
+      text-shadow: 0 0 10px #f4d03f;
+    }
+
+    .title-badge h1 {
+      margin: 0;
+      font-size: 1em;
+      letter-spacing: 2px;
+    }
+
+    .header-line {
+      flex: 1;
+      height: 5px;
+      background: linear-gradient(to right, #d4af37, #8b0a0a, #d4af37);
+      position: relative;
+      top: 0;
+      animation: glowLine 2s infinite alternate;
+    }
+
+    @keyframes glowLine {
+      0% {
+        opacity: 0.7;
+      }
+      100% {
+        opacity: 1;
+        filter: drop-shadow(0 0 8px #f4d03f);
+      }
+    }
+
+    /* ==== Body Text Section ==== */
+    .body-text-section {
+      width: 85%;
+      max-width: 1200px;
+      margin: 60px auto 40px auto;
+      text-align: center;
+    }
+
+    .body-text-section p {
+      font-size: 1.3em;
+      color: #f4d03f;
+      font-weight: 400;
+      margin: 0;
+    }
+
+    /* ==== Episode Grid ==== */
+    .episode-grid {
+      width: 85%;
+      max-width: 1200px;
+      margin: 40px auto 80px auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 30px;
+      padding: 20px;
+    }
+
+    .episode-box {
+      background: linear-gradient(180deg, #c2b06c 0%, #bdad6b 50%, #8b0a0a 50%, #8b0a0a 100%);
+      border-radius: 15px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.4s ease;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      border: 3px solid #7c1803;
+      height: 350px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .episode-box:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 15px 40px rgba(177, 29, 3, 0.715);
+    }
+
+    .episode-preview {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5em;
+      font-weight: bold;
+      color: #8b0a0a;
+      background-color: #ddc2537f;
+    }
+
+    .episode-title {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5em;
+      font-weight: 600;
+      color: #f4d03f;
+      background-color: #8b0a0a;
+      padding: 20px;
+      text-align: center;
+    }
+
+    /* ==== Modal Styles ==== */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(5px);
+      animation: fadeIn 0.3s ease;
+    }
+
+    .modal.active {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background: linear-gradient(135deg, #faf9f9 0%, #e8e8e8 100%);
+      width: 90%;
+      max-width: 900px;
+      max-height: 90vh;
+      border-radius: 20px;
+      position: relative;
+      overflow: hidden;
+      animation: slideIn 0.4s ease;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: scale(0.8) translateY(-50px);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 15px;
+      right: 25px;
+      font-size: 2.5em;
+      font-weight: bold;
+      color: #8b0a0a;
+      cursor: pointer;
+      z-index: 10;
+      transition: all 0.3s ease;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: rgba(244, 208, 63, 0.2);
+    }
+
+    .close-modal:hover {
+      transform: rotate(90deg) scale(1.2);
+      background: rgba(244, 208, 63, 0.4);
+    }
+
+    .modal-body {
+      display: flex;
+      flex-direction: column;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .modal-image-section {
+      width: 100%;
+      height: 400px;
+      background: linear-gradient(180deg, #a8d8ea 0%, #7cb342 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .modal-image-section img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .modal-text-section {
+      background: linear-gradient(135deg, #6a0202 0%, #a84b4b 100%);
+      padding: 50px 40px;
+      color: #f4d03f;
+      font-size: 1.1em;
+      line-height: 1.8;
+      text-align: justify;
+    }
+
+    .modal-text-section p {
+      margin: 0;
+      color: #f4d03f;
+    }
+
+    /* ==== Footer ==== */
+    footer {
+      background: linear-gradient(135deg, #660000, #4a0000);
+      text-align: center;
+      padding: 40px 20px;
+      color: #f4d03f;
+      font-size: 1em;
+      position: relative;
+      z-index: 1;
+      margin-top: 100px;
+      border-top: 3px solid #d4af37;
+      animation: fadeInFooter 1.2s ease;
+    }
+
+    @keyframes fadeInFooter {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    footer .social-icons img {
+      width: 28px;
+      margin: 0 8px;
+      vertical-align: middle;
+      filter: brightness(1.2);
+      transition: transform 0.3s ease, filter 0.3s ease;
+    }
+
+    footer .social-icons img:hover {
+      transform: scale(1.2);
+      filter: brightness(1.8) drop-shadow(0 0 10px #f4d03f);
+    }
+
+    footer .email {
+      margin: 20px 0;
+      font-size: 1.1em;
+    }
+
+    .email-icon {
+      margin-right: 8px;
+      font-size: 1.2em;
+    }
+
+    footer .quote {
+      font-style: italic;
+      margin-top: 20px;
+      font-size: 1.1em;
+      color: #d4af37;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .menu-icon {
+        top: 20px;
+        right: 20px;
+      }
+
+      .hero-image {
+        height: 300px;
+      }
+
+      .title-badge h1 {
+        font-size: 0.9em;
+        letter-spacing: 1px;
+      }
+
+      .title-badge {
+        padding: 12px 25px;
+      }
+
+      .nav-menu {
+        width: 80%;
+        max-width: 300px;
+      }
+
+      .episode-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+      }
+
+      .episode-box {
+        height: 280px;
+      }
+
+      .episode-preview {
+        font-size: 2em;
+      }
+
+      .episode-title {
+        font-size: 1em;
+        padding: 15px;
+      }
+
+      .modal-content {
+        width: 95%;
+        max-height: 95vh;
+      }
+
+      .modal-image-section {
+        height: 300px;
+      }
+
+      .modal-text-section {
+        padding: 30px 25px;
+        font-size: 1em;
+      }
+
+      .body-text-section p {
+        font-size: 1.1em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Particle Background -->
+  <div id="particles-js"></div>
+
+  <!-- Back to Home Button -->
+  <a href="index.html" class="back-home-btn">
+    <span>←</span>
+    <span>Home</span>
+  </a>
+
+  <!-- Theme Toggle Button -->
+  <button class="theme-toggle" id="themeToggle">
+    <span id="themeIcon">☀️</span>
+  </button>
+
+  <!-- Hamburger Menu Icon -->
+  <div class="menu-icon" id="menuIcon">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+
+  <!-- Navigation Menu -->
+  <nav class="nav-menu" id="navMenu">
+    <ul>
+      <li>
+        <button class="home-dropdown-btn" id="homeDropdownBtn">
+          <span>Home</span>
+          <span class="dropdown-arrow" id="dropdownArrow">▼</span>
+        </button>
+        <div class="submenu" id="submenu">
+          <a href="intro.html">Introduction</a>
+          <a href="bio.html">My Biography</a>
+          <a href="pre.html">Beliefs on Teaching & Learning (PRE-FS 1)</a>
+          <a href="post.html">Beliefs on Teaching & Learning (POST-FS 1)</a>
+          <a href="reflection.html">FS Reflection</a>
+          <a href="worksheet.html">Worksheet & Activities</a>
+          <a href="evidence.html">Evidence</a>
+          <a href="retrospect.html">Retrospect</a>
+        </div>
+      </li>
+      <li>
+        <a href="about.html" class="about-btn">About</a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Hero Image Section -->
+  <div class="hero-image" style="background-image: url('Image/df409aa0-2300-4d49-bbb6-199e6c6e98eb.jpg');">
+  </div>
+
+  <!-- Title Section -->
+  <section class="title-section">
+    <div class="header-line"></div>
+    <div class="title-badge">
+      <h1>FS REFLECTION</h1>
+    </div>
+    <div class="header-line"></div>
+  </section>
+
+  <!-- Body Text Section -->
+  <section class="body-text-section">
+    <p>Field Study reflection focuses on my experiential learning and the insights I gained from classroom observation and learning experiences.</p>
+  </section>
+
+  <!-- Episode Boxes Grid -->
+  <section class="episode-grid">
+    <div class="episode-box" onclick="openModal(1)">
+      <div class="episode-preview">EPISODE 1</div>
+      <div class="episode-title">The School Environment</div>
+    </div>
+    
+    <div class="episode-box" onclick="openModal(2)">
+      <div class="episode-preview">EPISODE 2</div>
+      <div class="episode-title">Learner Diversity: Developmental Characteristics, Needs, & Interests
+    </div>
+
+    <div class="episode-box" onclick="openModal(3)">
+      <div class="episode-preview">EPISODE 3</div>
+      <div class="episode-title">Focus on Gender, Needs, Strengths, Interests, Experiences Language, Race, Culture, Religion, Socio-economic Statues, Difficult Circumstances, and Indigenous People</div>
+    </div>
+
+    <div class="episode-box" onclick="openModal(4)">
+      <div class="episode-preview">EPISODE 4</div>
+      <div class="episode-title">Learner Diversity: The Community & Home Environment</div>
+    </div>
+
+    <div class="episode-box" onclick="openModal(5)">
+      <div class="episode-preview">EPISODE 5</div>
+      <div class="episode-title">Creating an Appropriate Learning Environment</div>
+    </div>
+
+    <div class="episode-box" onclick="openModal(6)">
+      <div class="episode-preview">EPISODE 6</div>
+      <div class="episode-title">Classroom Management & Routines</div>
+    </div>
+
+    <div class="episode-box" onclick="openModal(7)">
+      <div class="episode-preview">EPISODE 7</div>
+      <div class="episode-title">Physical & Personal Aspects of Classroom Management</div>
+    </div>
+
+    <div class="episode-box" onclick="openModal(8)">
+      <div class="episode-preview">EPISODE 8</div>
+      <div class="episode-title">Close Encounter with School Curriculum</div>
+    </div>
+
+    <div class="episode-box" onclick="openModal(9)">
+      <div class="episode-preview">EPISODE 9</div>
+      <div class="episode-title">Preparing for Teaching & Learning</div>
+    </div>
+
+    <div class="episode-box" onclick="openModal(10)">
+      <div class="episode-preview">EPISODE 10</div>
+      <div class="episode-title">The Instructional Cycle</div>
+    </div>
+
+    <div class="episode-box" onclick="openModal(11)">
+      <div class="episode-preview">EPISODE 11</div>
+      <div class="episode-title">Utilizing Teaching-Learning Resources & ICT</div>
+    </div>
+
+    <div class="episode-box" onclick="openModal(12)">
+      <div class="episode-preview">EPISODE 12</div>
+      <div class="episode-title">Assessment FOR & AS learning</div>
+    </div>
+
+    <div class="episode-box" onclick="openModal(13)">
+      <div class="episode-preview">EPISODE 13</div>
+      <div class="episode-title">Assessment AS Learning</div>
+    </div>
+
+    <div class="episode-box" onclick="openModal(14)">
+      <div class="episode-preview">EPISODE 14</div>
+      <div class="episode-title">Knowing the Quality Teaccher, The Teacher as a PERSON & as a Professional</div>
+    </div>
+
+    <div class="episode-box" onclick="openModal(15)">
+      <div class="episode-preview">EPISODE 15</div>
+      <div class="episode-title">Towards Teacher Quality: Developing a Global Teacher of the 21st Century</div>
+    </div>
+
+    <div class="episode-box" onclick="openModal(16)">
+      <div class="episode-preview">EPISODE 16</div>
+      <div class="episode-title">On Teacher's Philosophy of Education</div>
+    </div>
+  </section>
+
+  <!-- Modal -->
+  <div id="episodeModal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal" onclick="closeModal()">&times;</span>
+      <div class="modal-body">
+        <div class="modal-image-section">
+          <img id="modalImage" src="" alt="Episode Image">
+        </div>
+        <div class="modal-text-section">
+          <p id="modalText"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Back to Top Button -->
+  <div class="back-to-top" id="backToTop">↑</div>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Rizza Joy A. Jane</p>
+
+    <div class="social-icons">
+      <a href="https://www.facebook.com/rizza.jane.706322"><img src="Image/00a6225b-3e2c-46ba-95f4-bb8464ca253c-removebg-preview.png" alt="Facebook"></a>
+      <a href="https://www.instagram.com/ri.zzajj?igsh=dHp5MjJ1ZXI0czdj"><img src="Image/e8792b2d-90dc-44c7-8e8d-4a95f8418ee1-removebg-preview.png" alt="Instagram"></a>
+      <a href="https://t.me/+639566297527"><img src="Image/77320664-00eb-4b1d-852d-e4de4eeae26e-removebg-preview.png" alt="Telegram"></a>
+      <a href="http://www.pinterest.com/1ddreamoutlands"><img src="Image/746d2a07-50e0-420b-b3f4-7ecbf9653797-removebg-preview.png" alt="Pinterest"></a>
+      <a href="https://vm.tiktok.com/ZSHcaep6sePgg-CTqlG/"><img src="Image/426cb639-4885-4155-a490-b0fdecfce8bd-removebg-preview.png" alt="TikTok"></a>
+    </div>
+
+    <div class="email">
+      <p><span class="email-icon">✉</span> rizzajane754@email.com</p>
+    </div>
+
+    <p class="quote"><i>"Shaping minds, inspiring hearts."</i></p>
+  </footer>
+
+  <script>
+    // Create floating sparkles in background
+    function createSparkles() {
+      const sparkleContainer = document.body;
+      for (let i = 0; i < 20; i++) {
+        const sparkle = document.createElement('div');
+        sparkle.className = 'sparkle';
+        sparkle.style.left = Math.random() * 100 + '%';
+        sparkle.style.animationDelay = Math.random() * 8 + 's';
+        sparkle.style.animationDuration = (Math.random() * 5 + 5) + 's';
+        sparkleContainer.appendChild(sparkle);
+      }
+    }
+    createSparkles();
+
+    // Theme toggle functionality
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+
+    themeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('light-mode');
+      
+      if (document.body.classList.contains('light-mode')) {
+        themeIcon.textContent = '🌙';
+      } else {
+        themeIcon.textContent = '☀️';
+      }
+    });
+
+    // Hamburger menu functionality
+    const menuIcon = document.getElementById('menuIcon');
+    const navMenu = document.getElementById('navMenu');
+
+    menuIcon.addEventListener('click', () => {
+      menuIcon.classList.toggle('active');
+      navMenu.classList.toggle('active');
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!menuIcon.contains(e.target) && !navMenu.contains(e.target)) {
+        menuIcon.classList.remove('active');
+        navMenu.classList.remove('active');
+      }
+    });
+
+    // Home dropdown functionality
+    const homeDropdownBtn = document.getElementById('homeDropdownBtn');
+    const submenu = document.getElementById('submenu');
+    const dropdownArrow = document.getElementById('dropdownArrow');
+
+    homeDropdownBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      submenu.classList.toggle('active');
+      dropdownArrow.classList.toggle('open');
+    });
+
+    // Close submenu when clicking a link
+    submenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navMenu.classList.remove('active');
+        menuIcon.classList.remove('active');
+        submenu.classList.remove('active');
+        dropdownArrow.classList.remove('open');
+      });
+    });
+
+    // Back to top button functionality
+    const backToTop = document.getElementById('backToTop');
+
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        backToTop.classList.add('visible');
+      } else {
+        backToTop.classList.remove('visible');
+      }
+    });
+
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+
+    // Episode modal functionality
+    const episodeData = {
+      1: {
+        image: 'class.image/s16.image/Screenshot 2025-11-04 144602.png',
+        text: 'School environment not just as a physical space, but as a living ecosystem that shapes how students learn and interact. Observing the layout, facilities, and overall atmosphere helped me realize how much the environment influences student engagement, comfort, and behavior. I saw how well-maintained classrooms, accessible learning resources, and inclusive spaces can foster a sense of belonging and motivation. This experience taught me to be more intentional in designing learning environments that are safe, welcoming, and conducive to growth. It also made me reflect on how I, as a future educator, can contribute to creating spaces that empower every learner—especially those with diverse needs—to feel seen, supported, and inspired.'
+      },
+      2: {
+        image: 'class.image/s16.image/Screenshot 2025-11-04 145323.png',
+        text: 'Classroom setup and atmosphere directly influence student behavior, engagement, and learning outcomes. From seating arrangements to the placement of visual aids and learning materials, every detail inside the classroom contributes to how students interact with the content and with each other. Designing a well-structured classroom promotes focus, inclusivity, and a sense of belonging that foster a safe and stimulating environment.'
+      },
+      3: {
+        image: 'class.image/s16.image/488a52e2-3e89-4cd5-8bbb-279f77c531e3.jpg',
+        text: 'A classroom becomes a true learning space when it reflects the needs and diversity of its learners. Creating a conducive learning environment isn’t just about aesthetics, it’s about intentional design that responds to learners’ diversity while empowering students to thrive. Classroom characteristics, such as lighting, ventilation, seating arrangement, and the presence of learning materials, can either support or hinder students academically. How even small details, like the visibility of visual aids or the accessibility of resources, can make a big difference in student engagement, comfort and overall learning process of the students.'
+      },
+      4: {
+        image: 'class.image/s16.image/4b9808d0-5177-4a22-8c20-ef5ea695bd4c (1).jpg',
+        text: 'Behind every school is a community that gives life to learning through strong partnerships with its stakeholders. The collaboration among parents, administrators, barangay officials, and community members highlights that education thrives on shared responsibility and mutual respect. Meaningful engagement with the community strengthens trust and creates inclusive, sustainable, and empowering learning experiences for all students.'
+      },
+      5: {
+        image: 'class.image/s16.image/5603317a-f7e1-4e5c-b3a9-fa7a65542b1a.jpg',
+        text: 'Creating a school community requires more than individual effort—it thrives through unity and shared dedication. Each member, from the principal to the staff and support workers, contributes to building an environment where learners feel safe, guided, and valued. Collective effort and true strength comes from collaboration and shared purpose.'
+      },
+      6: {
+        image: 'class.image/s16.image/75be1493-7958-43b9-91a9-a8caf8117173.jpg',
+        text: 'Teaching effectively starts with understanding who the learners really are. Each student has their own interests, abilities, background, and way of learning that affect how they connect with lessons. Realizing these differences shows how important empathy, patience, and adaptability are in creating a classroom where every learner feels valued, supported, and encouraged to grow.'
+      },
+      7: {
+        image: 'class.image/s16.image/137af6d2-c09e-444d-8d1b-659deb63a97d.jpg',
+        text: ' Teaching isn’t just a profession—it’s a living philosophy built on principles that inspire effective teaching and meaningful learning. This reflects on how learning thrives when it is active, purposeful, and connected to real-life experiences. I saw how teachers who embrace student-centered approaches, foster curiosity, and adapt to diverse needs create environments where learners feel empowered. '
+      },
+      8: {
+        image: 'class.image/s16.image/9548669d-9bc8-4b90-aeca-6f976ed961fb.jpg',
+        text: 'A teacher must be multi-talented, able to take on many roles that extend far beyond delivering lessons. At times, a teacher becomes a mentor, motivator, counselor, and even a lifelong learner alongside the students. This shows that teaching requires not only knowledge but also creativity, adaptability, and compassion to meet the diverse needs of every learner. Embracing these different roles highlights how meaningful teaching is built on patience, understanding, and the genuine desire to help students grow in all aspects of life.'
+      },
+      9: {
+        image: 'class.image/s16.image/14ce41f8-f75f-4441-86c4-34e24109a97c.jpg',
+        text: 'Classroom management and routines isn’t just about conditioning, but it’s about creating a culture where learning thrives. An effective classroom routine and management strategies serve as the backbone of a productive learning environment. From the moment students entered the room, clear expectations, consistent procedures, and respectful interactions shaped their behavior and activeness, making the classroom organized and conducive for learning.'
+      },
+      10: {
+        image: 'class.image/s16.image/2967cc09-c915-4dae-8c12-2eb074af3175.jpg',
+        text: 'A well-planned lesson speaks for itself—it flows naturally, connects ideas meaningfully, and responds to the needs of learners. Observing how lessons were thoughtfully structured highlights the importance of designing activities that align with clear learning objectives. Each part of the lesson, from motivation to assessment, serves a purpose in helping students build knowledge and develop essential competencies and experience.'
+      },
+      11: {
+        image: 'class.image/s16.image/34f8215b-f9c2-493d-971c-7bbe7860e393.jpg',
+        text: 'Visiting the Learning Resource Center and observing how technology was used in class helped me understand how important it is to choose the right tools for teaching. I saw how even basic resources, when used well, can make lessons more engaging and easier to understand. This experience showed me that being a teacher means knowing how to connect students with the right materials and strategies. It made me more confident and excited to use ICT in my future classroom.'
+      },
+      12: {
+        image: 'class.image/s16.image/6cc0c646-fed3-42fd-aadd-c23b9e7d4035.jpg',
+        text: 'Assessment for learning is more than just a strategy—it’s a mindset that puts students’ growth at the center of every lesson. Observing how formative assessment was used in class showed how it helps both teachers and learners reflect and adjust along the way. The teacher’s use of simple examples and peer activities made the lesson more engaging and easier to understand. This experience made me see that assessment isn’t only about grading—it’s about guiding students toward real learning and improvement.'
+      },
+      13: {
+        image: 'class.image/s16.image/26cbfbac-196c-4ccb-841c-32f72a3b1f22.jpg',
+        text: 'Self-assessment plays a vital role in helping students take ownership of their learning. It encourages reflection, allowing them to recognize their strengths, address areas for improvement, and celebrate progress. Observing students engage in this process revealed how self-monitoring fosters confidence, accountability, and a deeper sense of purpose. When learners are empowered to assess themselves, they become more motivated, self-aware, and actively involved in their own growth and understanding.'
+      },
+      14: {
+        image: 'class.image/s16.image/e298d871-69eb-4d41-bb61-43dfdf20f66b.jpg',
+        text: 'Teaching is more than the act of delivering lessons—it is about creating meaningful connections that inspire growth. A true teacher leads with empathy, listens with understanding, and teaches with purpose, turning the classroom into a space where every learner feels valued. The heart of quality teaching lies not only in knowledge and skill but in the sincerity and compassion that give learning its true meaning.'
+      },
+      15: {
+        image: 'class.image/s16.image/653a51f2-e0b7-4d7d-a412-ec9bae607514 (1).jpg',
+        text: 'A quality teacher goes beyond teaching and transforms the classroom into a place where growth and creativity thrive. Effective learning means gaining knowledge, skills, and understanding in a way that leads to real and lasting change in how a learner thinks and applies what they’ve learned. Embracing the role of a 21st-century educator involves using technology wisely, valuing diversity, and creating an inclusive space where every learner feels supported and empowered to succeed.'
+      },
+      16: {
+        image: 'class.image/s16.image/84d42afb-c872-4c3b-b359-c7ab1a5a80bf (1).jpg',
+        text: 'A teacher is guided by a clear philosophy that shapes the way teaching and learning takes place in the classroom. Teaching practices reflect deeper beliefs, shown through hands-on learning, values , and student-centered approaches. When philosophies are integrated, learning becomes meaningful and connected to the real-world.'
+      }
+    };
+
+    function openModal(episodeNumber) {
+      const modal = document.getElementById('episodeModal');
+      const modalImage = document.getElementById('modalImage');
+      const modalText = document.getElementById('modalText');
+      
+      const data = episodeData[episodeNumber];
+      
+      if (data) {
+        modalImage.src = data.image;
+        modalImage.alt = `Episode ${episodeNumber} Image`;
+        modalText.textContent = data.text;
+        
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('episodeModal');
+      modal.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+
+    // Close modal when clicking outside content
+    document.getElementById('episodeModal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeModal();
+      }
+    });
+
+    // Close modal with Escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closeModal();
+      }
+    });
+  </script>
+
+  <!-- particles.js library -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  
+  <!-- particles.js configuration -->
+  <script>
+    particlesJS("particles-js", {
+      "particles": {
+        "number": {
+          "value": 80,
+          "density": {
+            "enable": true,
+            "value_area": 800
+          }
+        },
+        "color": {
+          "value": ["#d4af37", "#f4d03f", "#ffffff"]
+        },
+        "shape": {
+          "type": "circle"
+        },
+        "opacity": {
+          "value": 0.5,
+          "random": true
+        },
+        "size": {
+          "value": 3,
+          "random": true
+        },
+        "line_linked": {
+          "enable": true,
+          "distance": 150,
+          "color": "#d4af37",
+          "opacity": 0.25,
+          "width": 1
+        },
+        "move": {
+          "enable": true,
+          "speed": 1.8,
+          "direction": "none",
+          "random": true,
+          "straight": false,
+          "out_mode": "out",
+          "bounce": false
+        }
+      },
+      "interactivity": {
+        "detect_on": "canvas",
+        "events": {
+          "onhover": {
+            "enable": true,
+            "mode": "repulse"
+          },
+          "onclick": {
+            "enable": true,
+            "mode": "push"
+          },
+          "resize": true
+        },
+        "modes": {
+          "repulse": {
+            "distance": 120,
+            "duration": 0.4
+          },
+          "push": {
+            "particles_nb": 4
+          }
+        }
+      },
+      "retina_detect": true
+    });
+  </script>
+</body>
+</html>

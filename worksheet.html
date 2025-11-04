@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Worksheet & Activities | Portfolio</title>
+  <style>
+    /* ==== General Page Setup ==== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: #0f0e0b;
+      color: #f4d03f;
+      overflow-x: hidden;
+    }
+
+    body.light-mode {
+      background-color: #faf9f9c5;
+      color: #2a1515;
+    }
+
+    /* ==== Particles container ==== */
+    #particles-js {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    /* Animated background sparkles */
+    .sparkle {
+      position: fixed;
+      width: 4px;
+      height: 4px;
+      background: #d4af37;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+      animation: sparkleFloat 8s infinite;
+      box-shadow: 0 0 8px #d4af37;
+    }
+
+    @keyframes sparkleFloat {
+      0% {
+        transform: translateY(100vh) translateX(0) scale(0);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+        transform: translateY(90vh) translateX(10px) scale(1);
+      }
+      90% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-10vh) translateX(-20px) scale(0);
+        opacity: 0;
+      }
+    }
+
+    /* ==== Back to Home Button ==== */
+    .back-home-btn {
+      position: fixed;
+      top: 40px;
+      left: 40px;
+      background-color: #8b0a0a;
+      color: #f4d03f;
+      border: 2px solid #d4af37;
+      padding: 10px 20px;
+      font-size: 1em;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: 0.3s ease;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      box-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
+    }
+
+    .back-home-btn:hover {
+      background-color: #d4af37;
+      color: #0f0e0b;
+      border-color: #f4d03f;
+      transform: scale(1.05);
+    }
+
+    /* ==== Theme Toggle Button ==== */
+    .theme-toggle {
+      position: fixed;
+      top: 40px;
+      right: 100px;
+      background-color: #8b0a0a;
+      color: #f4d03f;
+      border: 2px solid #d4af37;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 1000;
+      font-size: 1.5em;
+      transition: 0.3s ease;
+      box-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
+    }
+
+    .theme-toggle:hover {
+      background-color: #d4af37;
+      color: #0f0e0b;
+      transform: scale(1.1) rotate(180deg);
+    }
+
+    /* ==== Back to Top Button ==== */
+    .back-to-top {
+      position: fixed;
+      bottom: 40px;
+      right: 40px;
+      background-color: #8b0a0a;
+      color: #f4d03f;
+      border: 2px solid #d4af37;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 1000;
+      font-size: 1.5em;
+      opacity: 0;
+      pointer-events: none;
+      transition: 0.3s ease;
+      box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+    }
+
+    .back-to-top.visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: scale(1.1);
+    }
+
+    .back-to-top:hover {
+      background-color: #d4af37;
+      color: #0f0e0b;
+      border-color: #f4d03f;
+      transform: scale(1.15);
+    }
+
+    /* ==== Hamburger Menu ==== */
+    .menu-icon {
+      position: fixed;
+      top: 40px;
+      right: 40px;
+      cursor: pointer;
+      z-index: 1001;
+      transition: transform 0.3s ease;
+    }
+
+    .menu-icon:hover {
+      transform: scale(1.1);
+    }
+
+    .menu-icon div {
+      width: 30px;
+      height: 3px;
+      background-color: #f4d03f;
+      margin: 6px 0;
+      border-radius: 2px;
+      transition: 0.4s ease;
+      box-shadow: 0 0 5px #d4af37;
+    }
+
+    .menu-icon.active div:nth-child(1) {
+      transform: rotate(45deg) translate(8px, 8px);
+    }
+
+    .menu-icon.active div:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu-icon.active div:nth-child(3) {
+      transform: rotate(-45deg) translate(8px, -8px);
+    }
+
+    /* ==== Navigation Menu ==== */
+    .nav-menu {
+      position: fixed;
+      top: 0;
+      right: -320px;
+      width: 300px;
+      height: 100vh;
+      background: linear-gradient(180deg, #1a0e0e 0%, #2a1515 100%);
+      border-left: 3px solid #d4af37;
+      z-index: 1000;
+      transition: right 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+      padding: 100px 30px;
+      box-shadow: -5px 0 20px rgba(212, 175, 55, 0.3);
+      opacity: 0;
+      overflow-y: auto;
+    }
+
+    .nav-menu.active {
+      right: 0;
+      opacity: 1;
+    }
+
+    .nav-menu ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .nav-menu li {
+      margin: 0;
+    }
+
+    /* Home dropdown button */
+    .home-dropdown-btn {
+      width: 100%;
+      background: none;
+      border: none;
+      color: #f4d03f;
+      text-decoration: none;
+      font-size: 1.3em;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 10px;
+      transition: all 0.3s ease;
+      text-shadow: 0 0 5px rgba(244, 208, 63, 0.4);
+      cursor: pointer;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .home-dropdown-btn:hover {
+      color: #d4af37;
+      padding-left: 15px;
+      text-shadow: 0 0 15px #f4d03f;
+    }
+
+    .dropdown-arrow {
+      font-size: 0.8em;
+      transition: transform 0.3s ease;
+      display: inline-block;
+    }
+
+    .dropdown-arrow.open {
+      transform: rotate(180deg);
+    }
+
+    /* Submenu */
+    .submenu {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease;
+      padding-left: 20px;
+    }
+
+    .submenu.active {
+      max-height: 1000px;
+    }
+
+    .submenu a {
+      color: #f4d03f;
+      text-decoration: none;
+      font-size: 1em;
+      font-weight: 500;
+      display: block;
+      padding: 12px 10px;
+      transition: all 0.3s ease;
+      opacity: 0.85;
+      border-left: 2px solid transparent;
+    }
+
+    .submenu a:hover {
+      opacity: 1;
+      padding-left: 15px;
+      color: #d4af37;
+      border-left-color: #d4af37;
+    }
+
+    .about-btn {
+      width: 100%;
+      background: none;
+      border: none;
+      color: #f4d03f;
+      text-decoration: none;
+      font-size: 1.3em;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 10px;
+      transition: all 0.3s ease;
+      text-shadow: 0 0 5px rgba(244, 208, 63, 0.4);
+      cursor: pointer;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .about-btn:hover {
+      color: #d4af37;
+      padding-left: 15px;
+      text-shadow: 0 0 15px #f4d03f;
+    }
+
+    /* ==== Hero Image Section ==== */
+    .hero-image {
+      width: 100%;
+      height: 380px;
+      background-image: url('your-field-study-image.jpg');
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      overflow: hidden;
+      animation: fadeIn 1s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    /* ==== Header ==== */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 40px;
+      position: relative;
+      animation: fadeSlideDown 1s ease;
+    }
+
+    @keyframes fadeSlideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .worksheet-title {
+      background-color: #8b0a0a;
+      color: white;
+      font-weight: bold;
+      font-size: 2em;
+      border-radius: 10px;
+      padding: 10px 30px;
+      border: 2px solid #d4af37;
+      text-align: center;
+      z-index: 1;
+      position: relative;
+      box-shadow: 0 5px 20px rgba(212, 175, 55, 0.3);
+      transition: transform 0.3s ease;
+    }
+
+    .worksheet-title:hover {
+      transform: scale(1.05);
+      text-shadow: 0 0 10px #f4d03f;
+    }
+
+    .header-line {
+      flex: 1;
+      height: 5px;
+      background: linear-gradient(to right, #d4af37, #8b0a0a, #d4af37);
+      position: relative;
+      top: 0;
+      animation: glowLine 2s infinite alternate;
+    }
+
+    @keyframes glowLine {
+      0% {
+        opacity: 0.7;
+      }
+      100% {
+        opacity: 1;
+        filter: drop-shadow(0 0 8px #f4d03f);
+      }
+    }
+
+    /* ==== Content Description ==== */
+    .content-description {
+      width: 85%;
+      max-width: 1200px;
+      margin: 60px auto 40px;
+      padding: 30px;
+      background: linear-gradient(135deg, rgba(139, 10, 10, 0.1), rgba(102, 0, 0, 0.1));
+      border-radius: 15px;
+      border: 2px solid rgba(212, 175, 55, 0.3);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+      animation: fadeSlideUp 1s ease 0.3s both;
+      transition: all 0.4s ease;
+    }
+
+    .content-description:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 50px rgba(212, 175, 55, 0.2);
+      border-color: rgba(212, 175, 55, 0.6);
+    }
+
+    @keyframes fadeSlideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .content-description p {
+      color: #f4d03f;
+      font-size: 1.2em;
+      line-height: 1.8;
+      margin: 0;
+      text-align: center;
+    }
+
+    /* ==== PDF Gallery Section ==== */
+    .pdf-gallery {
+      width: 90%;
+      max-width: 1200px;
+      margin: 40px auto 80px;
+      animation: fadeSlideUp 1s ease 0.6s both;
+    }
+
+    .pdf-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 30px;
+      padding: 20px 0;
+    }
+
+    .pdf-card {
+      background: linear-gradient(135deg, rgba(139, 10, 10, 0.2), rgba(102, 0, 0, 0.2));
+      border: 2px solid rgba(212, 175, 55, 0.4);
+      border-radius: 15px;
+      padding: 20px;
+      text-align: center;
+      transition: all 0.4s ease;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pdf-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .pdf-card:hover::before {
+      left: 100%;
+    }
+
+    .pdf-card:hover {
+      transform: translateY(-10px) scale(1.03);
+      border-color: #d4af37;
+      box-shadow: 0 15px 40px rgba(212, 175, 55, 0.4);
+    }
+
+    .pdf-thumbnail {
+      width: 100%;
+      height: 200px;
+      background: linear-gradient(135deg, #2a1515, #1a0e0e);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 15px;
+      position: relative;
+      overflow: hidden;
+      border: 2px solid rgba(212, 175, 55, 0.2);
+    }
+
+    .pdf-thumbnail img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .pdf-icon {
+      font-size: 3em;
+      color: #d4af37;
+      filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.5));
+    }
+
+    .pdf-title {
+      color: #f4d03f;
+      font-size: 1em;
+      font-weight: 600;
+      margin: 10px 0;
+      line-height: 1.4;
+    }
+
+    .pdf-view-btn {
+      background-color: #8b0a0a;
+      color: #f4d03f;
+      border: 2px solid #d4af37;
+      padding: 8px 20px;
+      border-radius: 8px;
+      font-size: 0.9em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 10px;
+      display: inline-block;
+      text-decoration: none;
+    }
+
+    .pdf-view-btn:hover {
+      background-color: #d4af37;
+      color: #0f0e0b;
+      transform: scale(1.05);
+      box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+    }
+
+    /* ==== Footer ==== */
+    footer {
+      background-color: #660000;
+      text-align: center;
+      padding: 30px 10px;
+      color: #f4d03f;
+      font-size: 1em;
+      box-shadow: 0 -2px 15px rgba(212, 175, 55, 0.3);
+      animation: fadeInFooter 1.2s ease;
+    }
+
+    @keyframes fadeInFooter {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    footer .social-icons img {
+      width: 28px;
+      margin: 0 8px;
+      vertical-align: middle;
+      filter: brightness(1.2);
+      transition: transform 0.3s ease, filter 0.3s ease;
+    }
+
+    footer .social-icons img:hover {
+      transform: scale(1.2);
+      filter: brightness(1.8) drop-shadow(0 0 10px #f4d03f);
+    }
+
+    footer .email {
+      margin: 10px 0;
+    }
+
+    .email-icon {
+      margin-right: 6px;
+    }
+
+    footer .quote {
+      font-style: italic;
+      margin-top: 10px;
+      opacity: 0.9;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .back-home-btn {
+        padding: 8px 16px;
+        font-size: 0.9em;
+        top: 20px;
+        left: 20px;
+      }
+
+      .menu-icon {
+        top: 20px;
+        right: 20px;
+      }
+
+      .hero-image {
+        height: 200px;
+      }
+
+      .worksheet-title {
+        font-size: 1.5em;
+        padding: 12px 25px;
+      }
+
+      .pdf-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 20px;
+      }
+
+      .content-description {
+        width: 90%;
+        padding: 20px;
+      }
+
+      .content-description p {
+        font-size: 1em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Particle Background -->
+  <div id="particles-js"></div>
+
+  <!-- Back to Home Button -->
+  <a href="index.html" class="back-home-btn">
+    <span>←</span>
+    <span>Home</span>
+  </a>
+
+  <!-- Theme Toggle Button -->
+  <button class="theme-toggle" id="themeToggle">
+    <span id="themeIcon">☀️</span>
+  </button>
+
+  <!-- Hamburger Menu Icon -->
+  <div class="menu-icon" id="menuIcon">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+
+  <!-- Navigation Menu -->
+  <nav class="nav-menu" id="navMenu">
+  <ul>
+    <li>
+      <button class="home-dropdown-btn" id="homeDropdownBtn">
+        <span>Home</span>
+        <span class="dropdown-arrow" id="dropdownArrow">▼</span>
+      </button>
+      <div class="submenu" id="submenu">
+        <a href="intro.html">Introduction</a>
+        <a href="bio.html">My Biography</a>
+        <a href="pre.html">Beliefs on Teaching & Learning (PRE-FS 1)</a>
+        <a href="post.html">Beliefs on Teaching & Learning (POST-FS 1)</a>
+        <a href="reflection.html">FS Reflection</a>
+        <a href="worksheet.html">Worksheet & Activities</a>
+        <a href="evidence.html">Evidence</a>
+        <a href="retrospect.html">Retrospect</a>
+      </div>
+
+      <li>
+          <a href="about.html" class="about-btn">About</a>
+    </li>
+    </li>
+  </ul>
+</nav>
+
+
+  <!-- Hero Image Section -->
+  <div class="hero-image" style="background-image: url('Image/df409aa0-2300-4d49-bbb6-199e6c6e98eb.jpg');">
+    <!-- Replace 'your-field-study-image.jpg' with your actual image path -->
+  </div>
+
+  <!-- Header -->
+  <header>
+    <div class="header-line"></div>
+    <h1 class="worksheet-title">WORKSHEET</h1>
+    <div class="header-line"></div>
+  </header>
+
+  <!-- Content Description -->
+  <section class="content-description">
+    <p>This section features all the learning episodes I completed during my Field Study 1.</p>
+  </section>
+
+  <!-- PDF Gallery Section -->
+  <section class="pdf-gallery">
+    <div class="pdf-grid">
+      <!-- PDF Card 1 -->
+      <div class="pdf-card">
+        <div class="pdf-thumbnail">
+          <div class="pdf-icon">📄</div>
+        </div>
+        <h3 class="pdf-title">FS 1 - Episode 1 <p>"The School Environment"</p></h3>
+        <a href="PDF/FS-1-Ep-1.JANE, RIZZA JOY A..pdf" target="_blank" class="pdf-view-btn">View PDF</a>
+      </div>
+
+      <!-- PDF Card 2 -->
+      <div class="pdf-card">
+        <div class="pdf-thumbnail">
+          <div class="pdf-icon">📄</div>
+        </div>
+        <h3 class="pdf-title">FS 1 - Episode 2 <p>"Learner Diversity: Developmental Characteristics, Needs and Interests"</p></h3>
+        <a href="PDF/FS-1-Ep-2 - ANE, RIZZA JOY A.pdf" target="_blank" class="pdf-view-btn">View PDF</a>
+      </div>
+
+      <!-- PDF Card 3 -->
+      <div class="pdf-card">
+        <div class="pdf-thumbnail">
+          <div class="pdf-icon">📄</div>
+        </div>
+        <h3 class="pdf-title">FS 1 - Episode 3 <p>"Focus on Gender, Needs, Strengths, Interests, Experiences, Lnaguage, Race, Culture, Religion, Socio-economic Status, Difficult Circumstances, and Indigenous People"</p></h3>
+        <a href="PDF/FS 1-EPISODE-3-JANE, RIZZA JOY A..pdf" target="_blank" class="pdf-view-btn">View PDF</a>
+      </div>
+
+      <!-- PDF Card 4 -->
+      <div class="pdf-card">
+        <div class="pdf-thumbnail">
+          <div class="pdf-icon">📄</div>
+        </div>
+        <h3 class="pdf-title">FS 1 - Episode 4<p>"Learner Diversity: The Community and Home Environment"</p></h3>
+        <a href="PDF/FS-1 EPISODE-4_JANE, RIZZA A..pdf" target="_blank" class="pdf-view-btn">View PDF</a>
+      </div>
+
+      <!-- PDF Card 5 -->
+      <div class="pdf-card">
+        <div class="pdf-thumbnail">
+          <div class="pdf-icon">📄</div>
+        </div>
+        <h3 class="pdf-title">FS 1 - Episode 5 <p>"Creating an Appropriate Learning Environment"</p></h3>
+        <a href="PDF/FS 1-EPISODE-5-JANE, RIZZA JOY A..pdf" target="_blank" class="pdf-view-btn">View PDF</a>
+      </div>
+
+      <!-- PDF Card 6 -->
+      <div class="pdf-card">
+        <div class="pdf-thumbnail">
+          <div class="pdf-icon">📄</div>
+        </div>
+        <h3 class="pdf-title">FS 1 - Episode 6 <p>"Classroom Management and Classroom Routines"</p></h3>
+        <a href="PDF/FS-1-Ep-6 - JANE, RIZZA JOY A.pdf" target="_blank" class="pdf-view-btn">View PDF</a>
+      </div>
+
+      <!-- PDF Card 7 -->
+      <div class="pdf-card">
+        <div class="pdf-thumbnail">
+          <div class="pdf-icon">📄</div>
+        </div>
+        <h3 class="pdf-title">FS 1 - Episode 7 <p>"Physical and Personal Aspects of Classroom Management"</p></h3>
+        <a href="PDF/FS-1-Ep-7 - JANE, RIZZA JOY A.pdf" target="_blank" class="pdf-view-btn">View PDF</a>
+      </div>
+
+      <!-- PDF Card 8 -->
+      <div class="pdf-card">
+        <div class="pdf-thumbnail">
+          <div class="pdf-icon">📄</div>
+        </div>
+        <h3 class="pdf-title">FS 1 - Episode 8 <p>"Close Encounter with School Curriculum"</p></h3>
+        <a href="PDF/FS-1-Ep-8 -JANE, RIZZA JOY A.pdf" target="_blank" class="pdf-view-btn">View PDF</a>
+      </div>
+
+      <!-- PDF Card 9 -->
+      <div class="pdf-card">
+        <div class="pdf-thumbnail">
+          <div class="pdf-icon">📄</div>
+        </div>
+        <h3 class="pdf-title">FS 1 - Episode 9 <p>"Preparing for Teaching & Learning"</p></h3>
+        <a href="PDF/FS-1-Ep-9 -JANE, RIZZA JOY A.pdf" target="_blank" class="pdf-view-btn">View PDF</a>
+      </div>
+
+      <!-- PDF Card 10 -->
+      <div class="pdf-card">
+        <div class="pdf-thumbnail">
+          <div class="pdf-icon">📄</div>
+        </div>
+        <h3 class="pdf-title">FS 1 - Episode 10 <p>"The Instructional Cycle"</p></h3>
+        <a href="PDF/FS 1-EP-10 -JANE, RIZZA JOY A.pdf" target="_blank" class="pdf-view-btn">View PDF</a>
+      </div>
+
+      <!-- PDF Card 11 -->
+      <div class="pdf-card">
+        <div class="pdf-thumbnail">
+          <div class="pdf-icon">📄</div>
+        </div>
+        <h3 class="pdf-title">FS 1 - Episode 11 <p>"Utilizing Teaching-Learning Resources & ICT"</p></h3>
+        <a href="PDF/FS-1-Ep-11-JANE, RIZZA JOY A.pdf" target="_blank" class="pdf-view-btn">View PDF</a>
+      </div>
+
+      <!-- PDF Card 12 -->
+      <div class="pdf-card">
+        <div class="pdf-thumbnail">
+          <div class="pdf-icon">📄</div>
+        </div>
+        <h3 class="pdf-title">FS 1 - Episode 12 <p>"Assessesment FOR & AS Learning (Formative Assessment)"</p></h3>
+        <a href="PDF/FS-1-Ep-12-JANE, RIZZA JOY A.pdf" target="_blank" class="pdf-view-btn">View PDF</a>
+      </div>
+
+      <!-- PDF Card 13 -->
+      <div class="pdf-card">
+        <div class="pdf-thumbnail">
+          <div class="pdf-icon">📄</div>
+        </div>
+        <h3 class="pdf-title">FS 1 - Episode 13 <p>"Assessment OF Learning (Summative Assessment)"</p></h3>
+        <a href="PDF/FS-1-Ep-13-JANE, RIZZA JOY A.pdf" target="_blank" class="pdf-view-btn">View PDF</a>
+      </div>
+
+      <!-- PDF Card 14 -->
+      <div class="pdf-card">
+        <div class="pdf-thumbnail">
+          <div class="pdf-icon">📄</div>
+        </div>
+        <h3 class="pdf-title">FS 1 - Episode 14 <p>"Knowing the Quality Teacher, The Teacher as A PERSON, and as a PROFESSIONAL"</p></h3>
+        <a href="PDF/FS-1-Ep-14-JANE, RIZZA JOY A.pdf" target="_blank" class="pdf-view-btn">View PDF</a>
+      </div>
+
+      <!-- PDF Card 15 -->
+      <div class="pdf-card">
+        <div class="pdf-thumbnail">
+          <div class="pdf-icon">📄</div>
+        </div>
+        <h3 class="pdf-title">FS 1 - Episode 15 <p>"Towards Teacher Quality: Developing a Global Teacher of the 21st Century"</p></h3>
+        <a href="PDF/FS-1-Ep-15-JANE, RIZZA JOY A.pdf" target="_blank" class="pdf-view-btn">View PDF</a>
+      </div>
+
+      <!-- PDF Card 16 -->
+      <div class="pdf-card">
+        <div class="pdf-thumbnail">
+          <div class="pdf-icon">📄</div>
+        </div>
+        <h3 class="pdf-title">FS 1 - Episode 16 <p>"On Teacher's Philosophy od Educattion"</p></h3>
+        <a href="PDF/FS-1-Ep-16-JANE, RIZZA JOY A.pdf" target="_blank" class="pdf-view-btn">View PDF</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Back to Top Button -->
+  <div class="back-to-top" id="backToTop">↑</div>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Rizza Joy A. Jane</p>
+
+    <div class="social-icons">
+      <a href="https://www.facebook.com/rizza.jane.706322"><img src="Image/00a6225b-3e2c-46ba-95f4-bb8464ca253c-removebg-preview.png" alt="Facebook"></a>
+      <a href="https://www.instagram.com/ri.zzajj?igsh=dHp5MjJ1ZXI0czdj"><img src="Image/e8792b2d-90dc-44c7-8e8d-4a95f8418ee1-removebg-preview.png" alt="Instagram"></a>
+      <a href="https://t.me/+639566297527"><img src="Image/77320664-00eb-4b1d-852d-e4de4eeae26e-removebg-preview.png" alt="Telegram"></a>
+      <a href="http://www.pinterest.com/1ddreamoutlands"><img src="Image/746d2a07-50e0-420b-b3f4-7ecbf9653797-removebg-preview.png" alt="Pinterest"></a>
+      <a href="https://vm.tiktok.com/ZSHcaep6sePgg-CTqlG/"><img src="Image/426cb639-4885-4155-a490-b0fdecfce8bd-removebg-preview.png" alt="TikTok"></a>
+    </div>
+
+    <div class="email">
+      <p><span class="email-icon">✉</span> rizzajane754@email.com</p>
+    </div>
+
+    <p class="quote"><i>"Shaping minds, inspiring hearts."</i></p>
+  </footer>
+
+  <script>
+    // Create floating sparkles in background
+    function createSparkles() {
+      const sparkleContainer = document.body;
+      for (let i = 0; i < 20; i++) {
+        const sparkle = document.createElement('div');
+        sparkle.className = 'sparkle';
+        sparkle.style.left = Math.random() * 100 + '%';
+        sparkle.style.animationDelay = Math.random() * 8 + 's';
+        sparkle.style.animationDuration = (Math.random() * 5 + 5) + 's';
+        sparkleContainer.appendChild(sparkle);
+      }
+    }
+    createSparkles();
+
+    // Theme toggle functionality
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+
+    themeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('light-mode');
+      
+      if (document.body.classList.contains('light-mode')) {
+        themeIcon.textContent = '🌙';
+      } else {
+        themeIcon.textContent = '☀️';
+      }
+    });
+
+
+    // Hamburger menu functionality
+    const menuIcon = document.getElementById('menuIcon');
+    const navMenu = document.getElementById('navMenu');
+
+    menuIcon.addEventListener('click', () => {
+      menuIcon.classList.toggle('active');
+      navMenu.classList.toggle('active');
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!menuIcon.contains(e.target) && !navMenu.contains(e.target)) {
+        menuIcon.classList.remove('active');
+        navMenu.classList.remove('active');
+      }
+    });
+
+    // Home dropdown functionality
+    const homeDropdownBtn = document.getElementById('homeDropdownBtn');
+    const submenu = document.getElementById('submenu');
+    const dropdownArrow = document.getElementById('dropdownArrow');
+
+    homeDropdownBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      submenu.classList.toggle('active');
+      dropdownArrow.classList.toggle('open');
+    });
+
+    // Close submenu when clicking a link
+    submenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navMenu.classList.remove('active');
+        menuIcon.classList.remove('active');
+        submenu.classList.remove('active');
+        dropdownArrow.classList.remove('open');
+      });
+    });
+
+    // Back to top button functionality
+    const backToTop = document.getElementById('backToTop');
+
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        backToTop.classList.add('visible');
+      } else {
+        backToTop.classList.remove('visible');
+      }
+    });
+
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  </script>
+
+  <!-- particles.js library -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  
+  <!-- particles.js configuration -->
+  <script>
+    particlesJS("particles-js", {
+      "particles": {
+        "number": {
+          "value": 80,
+          "density": {
+            "enable": true,
+            "value_area": 800
+          }
+        },
+        "color": {
+          "value": ["#d4af37", "#f4d03f", "#ffffff"]
+        },
+        "shape": {
+          "type": "circle"
+        },
+        "opacity": {
+          "value": 0.5,
+          "random": true
+        },
+        "size": {
+          "value": 3,
+          "random": true
+        },
+        "line_linked": {
+          "enable": true,
+          "distance": 150,
+          "color": "#d4af37",
+          "opacity": 0.25,
+          "width": 1
+        },
+        "move": {
+          "enable": true,
+          "speed": 1.8,
+          "direction": "none",
+          "random": true,
+          "straight": false,
+          "out_mode": "out",
+          "bounce": false
+        }
+      },
+      "interactivity": {
+        "detect_on": "canvas",
+        "events": {
+          "onhover": {
+            "enable": true,
+            "mode": "repulse"
+          },
+          "onclick": {
+            "enable": true,
+            "mode": "push"
+          },
+          "resize": true
+        },
+        "modes": {
+          "repulse": {
+            "distance": 120,
+            "duration": 0.4
+          },
+          "push": {
+            "particles_nb": 4
+          }
+        }
+      },
+      "retina_detect": true
+    });
+  </script>
+</body>
+</html>
