@@ -70,8 +70,8 @@
     /* ==== Back to Home Button ==== */
     .back-home-btn {
       position: fixed;
-      top: 40px;
-      left: 40px;
+      top: 20px;
+      left: 20px;
       background-color: #8b0a0a;
       color: #f4d03f;
       border: 2px solid #d4af37;
@@ -97,8 +97,8 @@
     /* ==== Theme Toggle Button ==== */
     .theme-toggle {
       position: fixed;
-      top: 40px;
-      right: 100px;
+      top: 20px;
+      right: 90px;
       background-color: #8b0a0a;
       color: #f4d03f;
       border: 2px solid #d4af37;
@@ -147,7 +147,6 @@
     .back-to-top.visible {
       opacity: 1;
       pointer-events: auto;
-      transform: scale(1.1);
     }
 
     .back-to-top:hover {
@@ -160,8 +159,8 @@
     /* ==== Hamburger Menu ==== */
     .menu-icon {
       position: fixed;
-      top: 40px;
-      right: 40px;
+      top: 20px;
+      right: 20px;
       cursor: pointer;
       z-index: 1001;
       transition: transform 0.3s ease;
@@ -225,7 +224,6 @@
       margin: 0;
     }
 
-    /* Home dropdown button */
     .home-dropdown-btn {
       width: 100%;
       background: none;
@@ -260,7 +258,6 @@
       transform: rotate(180deg);
     }
 
-    /* Submenu */
     .submenu {
       max-height: 0;
       overflow: hidden;
@@ -319,7 +316,6 @@
     .hero-image {
       width: 100%;
       height: 400px;
-      background-image: url('your-image-here.jpg');
       background-size: cover;
       background-position: center;
       position: relative;
@@ -342,6 +338,7 @@
       align-items: center;
       justify-content: center;
       margin: 40px auto;
+      padding: 0 20px;
       position: relative;
       animation: fadeSlideDown 1s ease 0.3s both;
     }
@@ -361,7 +358,7 @@
       background-color: #8b0a0a;
       color: white;
       font-weight: bold;
-      font-size: 2em;
+      font-size: clamp(1.2em, 4vw, 2em);
       border-radius: 10px;
       padding: 10px 30px;
       border: 2px solid #d4af37;
@@ -370,6 +367,7 @@
       position: relative;
       box-shadow: 0 5px 20px rgba(212, 175, 55, 0.3);
       transition: transform 0.3s ease;
+      white-space: nowrap;
     }
 
     .title-badge:hover {
@@ -390,6 +388,7 @@
       position: relative;
       top: 0;
       animation: glowLine 2s infinite alternate;
+      min-width: 20px;
     }
 
     @keyframes glowLine {
@@ -404,27 +403,29 @@
 
     /* ==== Body Text Section ==== */
     .body-text-section {
-      width: 85%;
+      width: 90%;
       max-width: 1200px;
       margin: 60px auto 40px auto;
       text-align: center;
+      padding: 0 20px;
     }
 
     .body-text-section p {
-      font-size: 1.3em;
+      font-size: clamp(1em, 2.5vw, 1.3em);
       color: #f4d03f;
       font-weight: 400;
       margin: 0;
+      line-height: 1.6;
     }
 
-    /* ==== Episode Grid ==== */
+    /* ==== Episode Grid - IMPROVED ==== */
     .episode-grid {
-      width: 85%;
-      max-width: 1200px;
+      width: 90%;
+      max-width: 1400px;
       margin: 40px auto 80px auto;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 30px;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 25px;
       padding: 20px;
     }
 
@@ -436,7 +437,8 @@
       transition: all 0.4s ease;
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
       border: 3px solid #7c1803;
-      height: 350px;
+      height: 100%;
+      min-height: 300px;
       display: flex;
       flex-direction: column;
     }
@@ -451,23 +453,27 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.5em;
+      font-size: clamp(1.2em, 3vw, 1.5em);
       font-weight: bold;
       color: #8b0a0a;
       background-color: #ddc2537f;
+      padding: 20px;
+      min-height: 120px;
     }
 
     .episode-title {
-      flex: 1;
+      flex: 1.2;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.5em;
+      font-size: clamp(0.95em, 2vw, 1.2em);
       font-weight: 600;
       color: #f4d03f;
       background-color: #8b0a0a;
-      padding: 20px;
+      padding: 20px 15px;
       text-align: center;
+      line-height: 1.4;
+      min-height: 140px;
     }
 
     /* ==== Modal Styles ==== */
@@ -482,6 +488,8 @@
       background-color: rgba(0, 0, 0, 0.8);
       backdrop-filter: blur(5px);
       animation: fadeIn 0.3s ease;
+      overflow-y: auto;
+      padding: 20px;
     }
 
     .modal.active {
@@ -492,7 +500,7 @@
 
     .modal-content {
       background: linear-gradient(135deg, #faf9f9 0%, #e8e8e8 100%);
-      width: 90%;
+      width: 100%;
       max-width: 900px;
       max-height: 90vh;
       border-radius: 20px;
@@ -500,6 +508,7 @@
       overflow: hidden;
       animation: slideIn 0.4s ease;
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      margin: auto;
     }
 
     @keyframes slideIn {
@@ -516,7 +525,7 @@
     .close-modal {
       position: absolute;
       top: 15px;
-      right: 25px;
+      right: 15px;
       font-size: 2.5em;
       font-weight: bold;
       color: #8b0a0a;
@@ -546,7 +555,7 @@
 
     .modal-image-section {
       width: 100%;
-      height: 400px;
+      height: 300px;
       background: linear-gradient(180deg, #a8d8ea 0%, #7cb342 100%);
       display: flex;
       align-items: center;
@@ -564,9 +573,9 @@
 
     .modal-text-section {
       background: linear-gradient(135deg, #6a0202 0%, #a84b4b 100%);
-      padding: 50px 40px;
+      padding: 40px 30px;
       color: #f4d03f;
-      font-size: 1.1em;
+      font-size: clamp(0.95em, 2vw, 1.1em);
       line-height: 1.8;
       text-align: justify;
     }
@@ -618,7 +627,7 @@
       margin: 20px 0;
       font-size: 1.1em;
     }
-
+ 
     .email-icon {
       margin-right: 8px;
       font-size: 1.2em;
@@ -631,65 +640,213 @@
       color: #d4af37;
     }
 
-    /* Responsive Design */
+    /* ==== RESPONSIVE DESIGN ==== */
+    
+    /* Tablets and Small Laptops */
+    @media (max-width: 1024px) {
+      .episode-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
+      }
+    }
+
+    /* Tablets */
     @media (max-width: 768px) {
+      .back-home-btn {
+        top: 15px;
+        left: 15px;
+        padding: 8px 15px;
+        font-size: 0.9em;
+      }
+
+      .theme-toggle {
+        top: 15px;
+        right: 75px;
+        width: 45px;
+        height: 45px;
+        font-size: 1.3em;
+      }
+
       .menu-icon {
-        top: 20px;
-        right: 20px;
+        top: 15px;
+        right: 15px;
+      }
+
+      .menu-icon div {
+        width: 25px;
       }
 
       .hero-image {
-        height: 300px;
+        height: 250px;
       }
 
-      .title-badge h1 {
-        font-size: 0.9em;
-        letter-spacing: 1px;
+      .title-section {
+        margin: 30px auto;
       }
 
       .title-badge {
-        padding: 12px 25px;
+        padding: 10px 20px;
       }
 
       .nav-menu {
-        width: 80%;
-        max-width: 300px;
+        width: 75%;
+        max-width: 280px;
       }
 
       .episode-grid {
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 20px;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 18px;
+        padding: 15px;
       }
 
       .episode-box {
-        height: 280px;
-      }
-
-      .episode-preview {
-        font-size: 2em;
-      }
-
-      .episode-title {
-        font-size: 1em;
-        padding: 15px;
+        min-height: 280px;
       }
 
       .modal-content {
         width: 95%;
-        max-height: 95vh;
+        max-height: 85vh;
       }
 
       .modal-image-section {
-        height: 300px;
+        height: 250px;
       }
 
       .modal-text-section {
         padding: 30px 25px;
-        font-size: 1em;
       }
 
-      .body-text-section p {
-        font-size: 1.1em;
+      .back-to-top {
+        bottom: 30px;
+        right: 30px;
+        width: 45px;
+        height: 45px;
+        font-size: 1.3em;
+      }
+    }
+
+    /* Mobile Devices */
+    @media (max-width: 480px) {
+      .back-home-btn {
+        padding: 6px 12px;
+        font-size: 0.85em;
+        gap: 3px;
+      }
+
+      .theme-toggle {
+        right: 70px;
+        width: 40px;
+        height: 40px;
+        font-size: 1.2em;
+      }
+
+      .menu-icon div {
+        width: 22px;
+        height: 2.5px;
+        margin: 5px 0;
+      }
+
+      .hero-image {
+        height: 200px;
+      }
+
+      .title-section {
+        margin: 25px auto;
+      }
+
+      .title-badge {
+        padding: 8px 15px;
+      }
+
+      .body-text-section {
+        margin: 40px auto 30px auto;
+      }
+
+      .episode-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        padding: 10px;
+        width: 95%;
+      }
+
+      .episode-box {
+        min-height: 260px;
+        max-width: 100%;
+      }
+
+      .episode-preview {
+        min-height: 100px;
+        padding: 15px;
+      }
+
+      .episode-title {
+        min-height: 120px;
+        padding: 15px 12px;
+      }
+
+      .modal {
+        padding: 10px;
+      }
+
+      .modal-content {
+        width: 100%;
+        max-height: 90vh;
+        border-radius: 15px;
+      }
+
+      .modal-image-section {
+        height: 200px;
+      }
+
+      .modal-text-section {
+        padding: 25px 20px;
+      }
+
+      .close-modal {
+        top: 10px;
+        right: 10px;
+        width: 35px;
+        height: 35px;
+        font-size: 2em;
+      }
+
+      .back-to-top {
+        bottom: 20px;
+        right: 20px;
+        width: 40px;
+        height: 40px;
+        font-size: 1.2em;
+      }
+
+      footer {
+        padding: 30px 15px;
+        font-size: 0.9em;
+      }
+
+      footer .social-icons img {
+        width: 24px;
+        margin: 0 6px;
+      }
+    }
+
+    /* Extra Small Mobile */
+    @media (max-width: 360px) {
+      .back-home-btn span:last-child {
+        display: none;
+      }
+
+      .back-home-btn {
+        padding: 8px;
+      }
+
+      .title-badge {
+        font-size: 1em;
+        padding: 6px 12px;
+      }
+
+      .episode-grid {
+        width: 98%;
+        padding: 8px;
       }
     }
   </style>
@@ -768,12 +925,12 @@
     
     <div class="episode-box" onclick="openModal(2)">
       <div class="episode-preview">EPISODE 2</div>
-      <div class="episode-title">Learner Diversity: Developmental Characteristics, Needs, & Interests
+      <div class="episode-title">Learner Diversity: Developmental Characteristics, Needs, & Interests</div>
     </div>
 
     <div class="episode-box" onclick="openModal(3)">
       <div class="episode-preview">EPISODE 3</div>
-      <div class="episode-title">Focus on Gender, Needs, Strengths, Interests, Experiences Language, Race, Culture, Religion, Socio-economic Statues, Difficult Circumstances, and Indigenous People</div>
+      <div class="episode-title">Focus on Gender, Needs, Strengths, Interests, Experiences Language, Race, Culture, Religion, Socio-economic Status, Difficult Circumstances, and Indigenous People</div>
     </div>
 
     <div class="episode-box" onclick="openModal(4)">
@@ -818,7 +975,7 @@
 
     <div class="episode-box" onclick="openModal(12)">
       <div class="episode-preview">EPISODE 12</div>
-      <div class="episode-title">Assessment FOR & AS learning</div>
+      <div class="episode-title">Assessment FOR & AS Learning</div>
     </div>
 
     <div class="episode-box" onclick="openModal(13)">
@@ -828,7 +985,7 @@
 
     <div class="episode-box" onclick="openModal(14)">
       <div class="episode-preview">EPISODE 14</div>
-      <div class="episode-title">Knowing the Quality Teaccher, The Teacher as a PERSON & as a Professional</div>
+      <div class="episode-title">Knowing the Quality Teacher, The Teacher as a PERSON & as a Professional</div>
     </div>
 
     <div class="episode-box" onclick="openModal(15)">
@@ -1030,7 +1187,7 @@
         image: 'class.image/s16.image/84d42afb-c872-4c3b-b359-c7ab1a5a80bf (1).jpg',
         text: 'A teacher is guided by a clear philosophy that shapes the way teaching and learning takes place in the classroom. Teaching practices reflect deeper beliefs, shown through hands-on learning, values , and student-centered approaches. When philosophies are integrated, learning becomes meaningful and connected to the real-world.'
       }
-    };
+    };    
 
     function openModal(episodeNumber) {
       const modal = document.getElementById('episodeModal');
