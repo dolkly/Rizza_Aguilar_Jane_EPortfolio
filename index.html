@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <title>My Field Study Experiences</title>
     <style>
         * {
@@ -12,10 +12,22 @@
             -webkit-tap-highlight-color: transparent;
         }
 
+        html {
+            overflow-x: hidden;
+            width: 100%;
+        }
+
         body {
             font-family: system-ui, -apple-system, sans-serif;
             transition: all 0.5s ease;
             overflow-x: hidden;
+            width: 100%;
+            position: relative;
+            background-color: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         .cursor-glow {
@@ -76,20 +88,13 @@
             --accent: #D4AF37;
         }
 
-        body {
-            background-color: var(--bg);
-            color: var(--text);
-            min-height: 100vh;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
         header {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
-            width: 100%;
+            width: 100vw;
+            max-width: 100%;
             z-index: 1000;
             background-color: rgba(0, 0, 0, 0.95);
             backdrop-filter: blur(10px);
@@ -100,6 +105,7 @@
             -webkit-transform: translateZ(0);
             transform: translateZ(0);
             will-change: transform;
+            overflow-x: hidden;
         }
 
         @keyframes slideDown {
@@ -120,15 +126,15 @@
 
         @media (max-width: 768px) {
             header.scrolled {
-            padding: 0.75rem 1.5rem;
+                padding: 0.75rem 1.5rem;
+            }
         }
-    }
 
         @media (max-width: 480px) {
             header.scrolled {
-            padding: 0.6rem 1rem;
+                padding: 0.6rem 1rem;
+            }
         }
-    }
 
         body.light header {
             background-color: rgba(245, 230, 211, 0.95);
@@ -141,12 +147,14 @@
             max-width: 1400px;
             margin: 0 auto;
             width: 100%;
+            overflow-x: hidden;
         }
 
         .logo-container {
             display: flex;
             gap: 1rem;
             align-items: center;
+            flex-shrink: 0;
         }
 
         .logo-placeholder {
@@ -205,6 +213,7 @@
             display: flex;
             gap: 2rem;
             align-items: center;
+            flex-shrink: 0;
         }
 
         .nav-links {
@@ -738,6 +747,20 @@
             overflow: hidden;
         }
 
+        @media (max-width: 768px) {
+            .landing-section {
+                padding-top: 80px;
+                min-height: 100vh;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .landing-section {
+                padding-top: 70px;
+                min-height: 100vh;
+            }
+        }
+
         .landing-section::before {
             content: '';
             position: absolute;
@@ -770,6 +793,8 @@
             grid-template-columns: 1fr 1fr;
             gap: 3rem;
             align-items: center;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .girl-image-placeholder {
@@ -868,6 +893,9 @@
             max-width: 1200px;
             margin: 0 auto;
             text-align: center;
+            width: 100%;
+            box-sizing: border-box;
+            padding: 0 1rem;
         }
 
         .golden-door-wrapper {
@@ -973,6 +1001,8 @@
             gap: 2rem;
             padding: 2rem;
             scrollbar-width: thin;
+            max-width: 100%;
+            -webkit-overflow-scrolling: touch;
         }
 
         .carousel-card {
@@ -1207,6 +1237,8 @@
             max-width: 1200px;
             margin: 0 auto;
             padding-top: 4rem;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .contact-container h2 {
@@ -1354,6 +1386,12 @@
 
         /* Tablet Portrait */
         @media (max-width: 768px) {
+            html, body {
+                overflow-x: hidden;
+                width: 100%;
+                position: relative;
+            }
+
             .nav-links {
                 display: none;
             }
@@ -1364,19 +1402,18 @@
 
             header {
                 padding: 0.75rem 1.5rem;
+                width: 100%;
+                max-width: 100vw;
             }
 
             .header-container {
                 gap: 1rem;
+                padding: 0;
             }
 
             .logo-placeholder {
                 width: 40px;
                 height: 40px;
-            }
-
-            .landing-section {
-                padding-top: 80px;
             }
 
             .landing-container {
@@ -1542,8 +1579,17 @@
 
         /* Mobile Large (iPhone 14 Pro Max, etc.) */
         @media (max-width: 480px) {
+            html, body {
+                overflow-x: hidden;
+                max-width: 100vw;
+            }
+
             header {
                 padding: 0.6rem 1rem;
+                width: 100vw;
+                max-width: 100%;
+                left: 0;
+                right: 0;
             }
 
             .logo-container {
@@ -1558,10 +1604,6 @@
             .theme-toggle svg {
                 width: 18px;
                 height: 18px;
-            }
-
-            .landing-section {
-                padding-top: 70px;
             }
 
             .landing-container {
