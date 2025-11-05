@@ -9,6 +9,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
@@ -79,6 +80,8 @@
             background-color: var(--bg);
             color: var(--text);
             min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         header {
@@ -86,13 +89,17 @@
             top: 0;
             left: 0;
             right: 0;
+            width: 100%;
             z-index: 1000;
             background-color: rgba(0, 0, 0, 0.95);
             backdrop-filter: blur(10px);
             padding: 1rem 2rem;
             box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
+            transition: padding 0.3s ease, box-shadow 0.3s ease;
             animation: slideDown 0.8s ease;
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+            will-change: transform;
         }
 
         @keyframes slideDown {
@@ -111,6 +118,18 @@
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
         }
 
+        @media (max-width: 768px) {
+            header.scrolled {
+            padding: 0.75rem 1.5rem;
+        }
+    }
+
+        @media (max-width: 480px) {
+            header.scrolled {
+            padding: 0.6rem 1rem;
+        }
+    }
+
         body.light header {
             background-color: rgba(245, 230, 211, 0.95);
         }
@@ -121,6 +140,7 @@
             align-items: center;
             max-width: 1400px;
             margin: 0 auto;
+            width: 100%;
         }
 
         .logo-container {
@@ -2318,13 +2338,19 @@
         createCursorGlow();
 
         const header = document.querySelector('header');
+        let lastScroll = 0;
+        
         window.addEventListener('scroll', () => {
-            if (window.pageYOffset > 100) {
+            const currentScroll = window.pageYOffset;
+    
+            if (currentScroll > 100) {
                 header.classList.add('scrolled');
             } else {
                 header.classList.remove('scrolled');
             }
-        });
+    
+            lastScroll = currentScroll;
+        }, { passive: true });
 
         const themeToggle = document.getElementById('themeToggle');
         const body = document.body;
@@ -2401,17 +2427,32 @@
 
         hamburger.addEventListener('click', () => {
             mobileMenuOverlay.classList.toggle('active');
-        });
+        if (mobileMenuOverlay.classList.contains('active')) {
+            document.body.style.overflow = 'hidden';
+            document.body.style.position = 'fixed';
+            document.body.style.width = '100%';
+        } else {
+            document.body.style.overflow = '';
+            document.body.style.position = '';
+            document.body.style.width = '';
+        }
+    });
 
-        mobileMenuClose.addEventListener('click', () => {
+    mobileMenuClose.addEventListener('click', () => {
+        mobileMenuOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+        document.body.style.position = '';
+        document.body.style.width = '';
+    });
+
+    mobileMenuOverlay.addEventListener('click', (e) => {
+        if (e.target === mobileMenuOverlay) {
             mobileMenuOverlay.classList.remove('active');
-        });
-
-        mobileMenuOverlay.addEventListener('click', (e) => {
-            if (e.target === mobileMenuOverlay) {
-                mobileMenuOverlay.classList.remove('active');
-            }
-        });
+            document.body.style.overflow = '';
+            document.body.style.position = '';
+            document.body.style.width = '';
+        }
+    });
 
         const mobileHomeDropdown = document.getElementById('mobileHomeDropdown');
         const mobileDropdownSubmenu = document.getElementById('mobileDropdownSubmenu');
