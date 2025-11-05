@@ -526,38 +526,458 @@
       color: #d4af37;
     }
 
-    /* Responsive Design */
+    /* ===== RESPONSIVE DESIGN ===== */
+    
+    /* Tablet Landscape */
+    @media (max-width: 1024px) {
+      .back-home-btn {
+        top: 30px;
+        left: 30px;
+        padding: 8px 16px;
+        font-size: 0.95em;
+      }
+
+      .theme-toggle {
+        top: 30px;
+        right: 85px;
+        width: 45px;
+        height: 45px;
+        font-size: 1.3em;
+      }
+
+      .menu-icon {
+        top: 30px;
+        right: 30px;
+      }
+
+      .hero-image {
+        height: 350px;
+      }
+
+      .title-badge {
+        font-size: 1.8em;
+        padding: 10px 25px;
+      }
+
+      .content-section {
+        width: 88%;
+        padding: 35px;
+      }
+
+      .content-section p {
+        font-size: 0.98rem;
+        line-height: 1.75;
+      }
+
+      footer {
+        padding: 35px 20px;
+        margin-top: 80px;
+      }
+    }
+
+    /* Tablet Portrait */
     @media (max-width: 768px) {
+      .back-home-btn {
+        top: 20px;
+        left: 20px;
+        padding: 8px 14px;
+        font-size: 0.9em;
+      }
+
+      .theme-toggle {
+        top: 20px;
+        right: 75px;
+        width: 42px;
+        height: 42px;
+        font-size: 1.2em;
+      }
+
       .menu-icon {
         top: 20px;
         right: 20px;
+      }
+
+      .menu-icon div {
+        width: 28px;
+      }
+
+      .nav-menu {
+        width: 80%;
+        max-width: 300px;
+        padding: 90px 25px;
+      }
+
+      .home-dropdown-btn,
+      .about-btn {
+        font-size: 1.2em;
+        padding: 14px 10px;
+      }
+
+      .submenu a {
+        font-size: 0.95em;
+        padding: 11px 10px;
       }
 
       .hero-image {
         height: 300px;
       }
 
-      .title-badge h1 {
-        font-size: 0.9em;
-        letter-spacing: 1px;
+      .title-section {
+        margin: 35px auto;
+        padding: 0 10px;
       }
 
       .title-badge {
-        padding: 12px 25px;
+        font-size: 1.6em;
+        padding: 10px 20px;
+      }
+
+      .title-badge h1 {
+        font-size: 0.9em;
+        letter-spacing: 1.5px;
+      }
+
+      .header-line {
+        height: 4px;
       }
 
       .content-section {
         width: 90%;
-        padding: 30px 20px;
+        padding: 30px 25px;
+        margin: 50px auto;
       }
 
       .content-section p {
-        font-size: 1em;
+        font-size: 0.95rem;
+        line-height: 1.7;
+        margin-bottom: 1.3rem;
+      }
+
+      .content-sparkle {
+        width: 6px;
+        height: 6px;
+      }
+
+      .back-to-top {
+        bottom: 30px;
+        right: 30px;
+        width: 45px;
+        height: 45px;
+        font-size: 1.3em;
+      }
+
+      footer {
+        padding: 30px 15px;
+        margin-top: 70px;
+        font-size: 0.95em;
+      }
+
+      footer .social-icons img {
+        width: 26px;
+        margin: 0 7px;
+      }
+
+      footer .email {
+        font-size: 1.05em;
+      }
+
+      footer .quote {
+        font-size: 1.05em;
+      }
+    }
+
+    /* Mobile Large */
+    @media (max-width: 480px) {
+      .back-home-btn {
+        top: 15px;
+        left: 15px;
+        padding: 7px 12px;
+        font-size: 0.85em;
+        gap: 3px;
+      }
+
+      .theme-toggle {
+        top: 15px;
+        right: 65px;
+        width: 38px;
+        height: 38px;
+        font-size: 1.1em;
+      }
+
+      .menu-icon {
+        top: 15px;
+        right: 15px;
+      }
+
+      .menu-icon div {
+        width: 26px;
+        height: 2.5px;
+        margin: 5px 0;
       }
 
       .nav-menu {
-        width: 80%;
-        max-width: 300px;
+        width: 85%;
+        padding: 80px 20px;
+      }
+
+      .home-dropdown-btn,
+      .about-btn {
+        font-size: 1.1em;
+        padding: 12px 8px;
+      }
+
+      .submenu {
+        padding-left: 15px;
+      }
+
+      .submenu a {
+        font-size: 0.9em;
+        padding: 10px 8px;
+      }
+
+      .hero-image {
+        height: 250px;
+      }
+
+      .title-section {
+        margin: 30px auto;
+        padding: 0 15px;
+      }
+
+      .title-badge {
+        font-size: 1.4em;
+        padding: 8px 18px;
+      }
+
+      .title-badge h1 {
+        font-size: 0.85em;
+        letter-spacing: 1px;
+      }
+
+      .header-line {
+        height: 3px;
+      }
+
+      .content-section {
+        width: 92%;
+        padding: 25px 20px;
+        margin: 40px auto;
+        border-radius: 15px;
+      }
+
+      .content-section p {
+        font-size: 0.9rem;
+        line-height: 1.65;
+        margin-bottom: 1.2rem;
+      }
+
+      .content-sparkle {
+        width: 5px;
+        height: 5px;
+      }
+
+      .back-to-top {
+        bottom: 25px;
+        right: 25px;
+        width: 42px;
+        height: 42px;
+        font-size: 1.2em;
+      }
+
+      footer {
+        padding: 25px 15px;
+        margin-top: 60px;
+        font-size: 0.9em;
+      }
+
+      footer .social-icons img {
+        width: 24px;
+        margin: 0 6px;
+      }
+
+      footer .email {
+        font-size: 1em;
+      }
+
+      footer .quote {
+        font-size: 1em;
+      }
+    }
+
+    /* Mobile Small */
+    @media (max-width: 375px) {
+      .back-home-btn {
+        top: 12px;
+        left: 12px;
+        padding: 6px 10px;
+        font-size: 0.8em;
+      }
+
+      .theme-toggle {
+        top: 12px;
+        right: 58px;
+        width: 36px;
+        height: 36px;
+        font-size: 1em;
+      }
+
+      .menu-icon {
+        top: 12px;
+        right: 12px;
+      }
+
+      .menu-icon div {
+        width: 24px;
+        height: 2px;
+        margin: 4.5px 0;
+      }
+
+      .nav-menu {
+        width: 90%;
+        padding: 75px 18px;
+      }
+
+      .home-dropdown-btn,
+      .about-btn {
+        font-size: 1.05em;
+        padding: 11px 8px;
+      }
+
+      .submenu a {
+        font-size: 0.85em;
+        padding: 9px 8px;
+      }
+
+      .hero-image {
+        height: 220px;
+      }
+
+      .title-section {
+        margin: 25px auto;
+        padding: 0 12px;
+      }
+
+      .title-badge {
+        font-size: 1.2em;
+        padding: 8px 15px;
+      }
+
+      .title-badge h1 {
+        font-size: 0.8em;
+        letter-spacing: 0.8px;
+      }
+
+      .header-line {
+        height: 2.5px;
+      }
+
+      .content-section {
+        width: 94%;
+        padding: 20px 18px;
+        margin: 35px auto;
+        border-radius: 12px;
+      }
+
+      .content-section p {
+        font-size: 0.85rem;
+        line-height: 1.6;
+        margin-bottom: 1.1rem;
+      }
+
+      .content-sparkle {
+        width: 4px;
+        height: 4px;
+      }
+
+      .back-to-top {
+        bottom: 20px;
+        right: 20px;
+        width: 38px;
+        height: 38px;
+        font-size: 1.1em;
+      }
+
+      footer {
+        padding: 22px 12px;
+        margin-top: 50px;
+        font-size: 0.85em;
+      }
+
+      footer .social-icons img {
+        width: 22px;
+        margin: 0 5px;
+      }
+
+      footer .email {
+        font-size: 0.95em;
+        margin: 18px 0;
+      }
+
+      footer .quote {
+        font-size: 0.95em;
+        margin-top: 18px;
+      }
+    }
+
+    /* Landscape Mode for Mobile */
+    @media (max-height: 500px) and (orientation: landscape) {
+      .back-home-btn {
+        top: 10px;
+        left: 10px;
+        padding: 5px 10px;
+        font-size: 0.8em;
+      }
+
+      .theme-toggle {
+        top: 10px;
+        right: 55px;
+        width: 35px;
+        height: 35px;
+        font-size: 1em;
+      }
+
+      .menu-icon {
+        top: 10px;
+        right: 10px;
+      }
+
+      .nav-menu {
+        padding: 60px 20px;
+      }
+
+      .hero-image {
+        height: 200px;
+      }
+
+      .title-section {
+        margin: 20px auto;
+      }
+
+      .title-badge {
+        font-size: 1.3em;
+        padding: 6px 15px;
+      }
+
+      .content-section {
+        margin: 30px auto;
+        padding: 20px;
+      }
+
+      .content-section p {
+        font-size: 0.88rem;
+        line-height: 1.6;
+      }
+
+      footer {
+        margin-top: 40px;
+        padding: 20px 15px;
+      }
+
+      .back-to-top {
+        bottom: 15px;
+        right: 15px;
+        width: 38px;
+        height: 38px;
       }
     }
   </style>
